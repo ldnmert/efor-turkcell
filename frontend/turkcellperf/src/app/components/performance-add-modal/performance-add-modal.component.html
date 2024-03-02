@@ -1,0 +1,33 @@
+<div class="add-performance-form">
+  <h2>Add Performance</h2>
+    <form (submit)="addPerformance()" #form="ngForm" novalidate>
+        <!-- <label for="agentId">Agent ID:</label>
+      <input type="text" id="agentId" name="agentId" [(ngModel)]="newPerformance.agentId" required> -->
+        <!-- <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="newPerformance.firstName" required>
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" name="surname" [(ngModel)]="newPerformance.surname" required> -->
+        <label for="begin">Begin: <span class="required" *ngIf="!newPerformance.begin">Zorunlu</span></label>
+        <input type="time" id="begin" name="begin" [(ngModel)]="newPerformance.begin" required>
+        <label for="end">End: <span class="required" *ngIf="!newPerformance.begin">Zorunlu</span></label>
+        <input type="time" id="end" name="end" [(ngModel)]="newPerformance.end" required>
+        <label for="dateInfo">Date Info: <span class="required" *ngIf="!newPerformance.begin">Zorunlu</span></label>
+        <input type="date" id="dateInfo" name="dateInfo" [(ngModel)]="newPerformance.dateInfo" required>
+        <label for="excuse">Excuse:</label>
+        <select id="excuse" name="excuse" [(ngModel)]="newPerformance.excuse" class="form-control">
+            <option value="" disabled selected>Select an excuse</option>
+            <option value="Sick">Sick</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Appointment">Appointment</option>
+            <!-- Diğer seçenekler buraya eklenebilir -->
+
+            
+        </select>
+
+        <label for="execuseHours">Execuse Hours:</label>
+        <input type="number" id="execuseHours" name="execuseHours" [(ngModel)]="newPerformance.execuseHours">
+        <label for="timeout">Timeout:</label>
+        <input type="number" id="timeout" name="timeout" [(ngModel)]="newPerformance.timeout">
+        <button type="submit" [disabled]="!form.valid">Add</button>
+    </form>
+</div>

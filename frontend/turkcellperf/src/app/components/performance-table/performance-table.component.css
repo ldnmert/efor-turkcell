@@ -1,0 +1,29 @@
+.performance-table-container {
+    margin-top: 20px;
+  }
+  
+  .performance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .performance-table th, .performance-table td {
+    border: 1px solid #ddd;
+    padding: 12px; /* Hücre içerisinde daha geniş bir boşluk bırakmak için padding değerini arttırdık */
+    text-align: center; /* Hücre içeriğini ortalamak için text-align özelliğini kullanıyoruz */
+  }
+  
+  .performance-table th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .performance-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .performance-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
