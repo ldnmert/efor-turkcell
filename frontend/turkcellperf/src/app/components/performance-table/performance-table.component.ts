@@ -45,13 +45,13 @@ export class PerformanceTableComponent implements OnInit {
    
   }
 
-  // updatePerformance(updatedPerformance: Performance): void {
-  //   this.performanceService.updatePerformance(updatedPerformance)
-  //     .subscribe(() => {
-  //       // If the update is successful, you may want to refresh the data.
-  //       this.getPerformances();
-  //     });
-  // }
+  updatePerformance(updatedPerformance: Performance): void {
+    this.performanceService.updatePerformance(updatedPerformance)
+      .subscribe(() => {
+        // If the update is successful, you may want to refresh the data.
+        this.getPerformances();
+      });
+  }
 
   // addPerformance(): void {
   //   this.performanceService.addPerformance(this.newPerformance)
