@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { PerformanceService } from '../../services/performance.service';
 import { Performance } from '../../model/performance';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,12 +7,14 @@ import { PerformanceAddModalComponent } from '../performance-add-modal/performan
 @Component({
   selector: 'app-performance-table',
   templateUrl: './performance-table.component.html',
-  styleUrls: ['./performance-table.component.css']
+  styleUrls: ['./performance-table.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PerformanceTableComponent implements OnInit {
   performances: Performance[] = [];
 
-  constructor(private performanceService: PerformanceService, private changeDetector: ChangeDetectorRef, public dialog: MatDialog) { }
+  constructor(private performanceService: PerformanceService, public dialog: MatDialog) { }
   
   newPerformance: Performance = new Performance(0, '', '', '', '', '', '', '', 0, 0); 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class PerformanceTableComponent implements OnInit {
   }
 
   deletePerformance(id: number): void { 
+    console.log(id + "deleteFperfomancertablecomponent");
     console.log("component.ts");
     this.performanceService.deletePerformance(id)
       .subscribe(() => {
@@ -40,41 +43,14 @@ export class PerformanceTableComponent implements OnInit {
 
 
     }
-  onClick() {
-    console.log('Button clicked!');
-   
-  }
 
-  updatePerformance(updatedPerformance: Performance): void {
-    this.performanceService.updatePerformance(updatedPerformance)
-      .subscribe(() => {
-        // If the update is successful, you may want to refresh the data.
-        this.getPerformances();
-      });
-  }
 
-  // addPerformance(): void {
-  //   this.performanceService.addPerformance(this.newPerformance)
-  //     .subscribe(newPerformance => {
-  //       this.performances.push(new Performance(
-  //         newPerformance.id,
-  //         newPerformance.agentId,
-  //         newPerformance.firstName,
-  //         newPerformance.surname,
-  //         newPerformance.begin,
-  //         newPerformance.end,
-  //         newPerformance.dateInfo,
-  //         newPerformance.execuse,
-  //         newPerformance.execuseHours,
-  //         newPerformance.timeout
-  //       ));
-  //       this.newPerformance = new Performance(0, '', '', '', '', '', '', '', 0, 0); // Formu temizle
-  //     });
-  // }
+ 
 
   openAddPerformanceModal(): void {
     const dialogRef = this.dialog.open(PerformanceAddModalComponent, {
-      width: '400px' // Modal pencerenin genişliği
+      width: '400px', // Modal width
+      data: { mode: 'add' } // Pass mode as 'add' to indicate adding a new performance
     });
   
     dialogRef.afterClosed().subscribe(newPerformance => {
@@ -84,5 +60,31 @@ export class PerformanceTableComponent implements OnInit {
     });
   }
 
+  openUpdatePerformanceModal(performance: Performance): void {
+    const dialogRef = this.dialog.open(PerformanceAddModalComponent, {
+      width: '400px',
+      data: { mode: 'update', performance: performance }
+    });
+  
+    dialogRef.afterClosed().subscribe(updatedPerformance => {
+      console.log(updatedPerformance.begin);
+      if (updatedPerformance) {
+        const index = this.performances.findIndex(p => p.id === updatedPerformance.id);
+     
+          this.performances[index] = updatedPerformance;
+        
+          // Manually trigger change detection
+   
+            // Manually trigger change detection within Angular's zone
+            
+          
+        
+      }
+    });
+  
+  }
+
+  
+ 
  
   }

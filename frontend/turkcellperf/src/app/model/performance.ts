@@ -11,4 +11,6 @@ export class Performance {
     public execuseHours: number = 0,
     public timeout: number = 0
   ) {}
+
+
 }

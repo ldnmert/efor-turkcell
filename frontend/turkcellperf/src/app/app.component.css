@@ -1,0 +1,14 @@
+.ta {
+ margin-left: 20%;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+}
+
+  .header {
+    margin-bottom: 20px; /* Başlık ile tablo arasındaki boşluk */
+    
+    background-color: navy; /* Lacivert arkaplan rengi */
+    color: white; /* Yazı rengi */
+    padding: 10px; /* Şerit içindeki içeriğin etrafındaki boşluk */
+}

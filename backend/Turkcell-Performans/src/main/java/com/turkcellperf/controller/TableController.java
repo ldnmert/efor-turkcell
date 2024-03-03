@@ -1,5 +1,6 @@
 package com.turkcellperf.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turkcellperf.entity.Performance;
@@ -30,7 +32,7 @@ public class TableController {
 		this.performanceService = performanceService;
 	}
 
-	@GetMapping("/api")
+	@GetMapping
 	ResponseEntity<List<Performance>> getAllPerformance() {
 
 		List<Performance> p = performanceService.listPerformanceOfCurrentAgent();
@@ -41,31 +43,40 @@ public class TableController {
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePerformance(@PathVariable Long id) {
-	    Performance p = performanceService.getPerformance(id);
-	    performanceService.deletePerformance(p);
+		System.out.println(id);
+		Performance p = performanceService.getPerformance(id);
+		performanceService.deletePerformance(p);
 
-
-	    return ResponseEntity.ok().body("{\"message\": \"Deleted\"}");
+		return ResponseEntity.ok().body("{\"message\": \"Deleted\"}");
 	}
-	
+
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.PUT })
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatePerformance(@PathVariable Long id, @RequestBody Performance performance){
-		
-		
+	public ResponseEntity<String> updatePerformance(@PathVariable Long id, @RequestBody Performance performance) {
+
 		performance.setId(id);
 		performanceService.addPerformance(performance);
-		
+
 		return ResponseEntity.ok().body("{\"message\": \"Updated\"}");
-		
+
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.POST })
 	@PostMapping
-	public ResponseEntity<Performance> addPerformance(@RequestBody Performance p){
+	public ResponseEntity<Performance> addPerformance(@RequestBody Performance p) {
+
+		Performance savedPerformance = performanceService.addPerformance(p);
+
+		return new ResponseEntity<>(savedPerformance, HttpStatus.CREATED);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/filtered")
+	public ResponseEntity<List<Performance>> filteredPerformance(@RequestParam String memberId, @RequestParam Date startDate, @RequestParam Date endDate){
+		System.out.println(memberId + startDate + endDate +" xdx");
+		List<Performance> performanceFiltered = performanceService.listFilteredPerformance(memberId, startDate, endDate);
 		
-		performanceService.addPerformance(p);
-		
-		return new ResponseEntity<>(p, HttpStatus.CREATED);
+		return new ResponseEntity<>(performanceFiltered, HttpStatus.OK);
 	}
 
 }

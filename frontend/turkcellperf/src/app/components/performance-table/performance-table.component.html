@@ -1,48 +1,36 @@
 <div class="performance-table-container">
-  <h1>Performance Table</h1>
-  <table class="performance-table">
-    <thead>
-      <tr>
-        <!-- <th>ID</th>
-        <th>Agent ID</th> -->
-        <!-- <th>First Name</th>
-        <th>Surname</th> -->
-        <th>Date Info</th>
-        <th>Mesai Başlangıcı</th>
-        <th>Mesai Bitişi</th>
-        <th>Mola</th>
-        <th>Mazeret</th>
-        <th>Mazeret Süresi</th>
-        
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let performance of performances">
-        <!-- <td>{{ performance.id }}</td>
-        <td>{{ performance.agentId }}</td> -->  
-        <!-- <td>{{ performance.firstName }}</td>
-        <td>{{ performance.surname }}</td> -->
-        <td>{{ performance.dateInfo }}</td>
-        <td>{{ performance.begin }}</td>
-        <td>{{ performance.end }}</td> 
-        <td>{{ performance.timeout }}</td>
-        <td>{{ performance.excuse }}</td>
-        <td>{{ performance.execuseHours }}</td>
-        
-        <td>
-          <button (click)="deletePerformance(performance.id)">Delete</button>
-        </td>
-        <td>
-           <!-- HERE A UPDATE BUTTON -->
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <h1 class="text-center mb-4">Performance Table</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th class="align-middle">Date Info</th>
+          <th class="align-middle">Mesai Başlangıcı</th>
+          <th class="align-middle">Mesai Bitişi</th>
+          <th class="align-middle">Mola</th>
+          <th class="align-middle">Mazeret</th>
+          <th class="align-middle">Mazeret Süresi</th>
+          <th class="align-middle">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let performance of performances">
+          <td class="align-middle">{{ performance.dateInfo }}</td>
+          <td class="align-middle">{{ performance.begin }}</td>
+          <td class="align-middle">{{ performance.end }}</td>
+          <td class="align-middle">{{ performance.timeout }}</td>
+          <td class="align-middle">{{ performance.excuse }}</td>
+          <td class="align-middle">{{ performance.execuseHours }}</td>
+          <td class="align-middle">
+            <button class="btn btn-danger btn-sm" (click)="deletePerformance(performance.id)">Delete</button>
+            <button class="btn btn-primary btn-sm ml-2" (click)="openUpdatePerformanceModal(performance)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <button class="btn btn-success" (click)="openAddPerformanceModal()">Performans Ekle</button>
 
-  <button (click)="onClick()">Click me!</button>
-   <!-- Add the form here -->
- 
 </div>
 
-<button (click)="openAddPerformanceModal()">Performans Ekle</button>

@@ -12,11 +12,12 @@ export class PerformanceService {
   constructor(private http: HttpClient) { }
 
   getPerformances(): Observable<Performance[]> {
-    return this.http.get<Performance[]>(`${this.baseUrl}/api`);
+    return this.http.get<Performance[]>(`${this.baseUrl}`);
   }
 
   deletePerformance(id: number): Observable<any> {
-    console.log("servicedeyiz")
+    console.log(id);
+    console.log(id);
     const url = `${this.baseUrl}/${id}`;
     return this.http.delete<void>(url);
     

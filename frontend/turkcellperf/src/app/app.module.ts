@@ -9,17 +9,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PerformanceAddModalComponent } from './components/performance-add-modal/performance-add-modal.component';
+import { HeaderComponent } from './components/header/header.component';
+import { AdminpanelComponent } from './components/adminpanel/adminpanel.component';
 
-// const routes: Routes = [
-//   {path: 'order-history', component: },
-//   {path: 'members', component: },
 
-// ];
+
+const routes: Routes = [
+  { path: '', component: PerformanceTableComponent }, // Ana sayfa performans tablosu
+  { path: 'admin', component: AdminpanelComponent } // Admin girişi için ayrı sayfa
+];
 @NgModule({
   declarations: [
     AppComponent,
     PerformanceTableComponent,
-    PerformanceAddModalComponent
+    PerformanceAddModalComponent,
+    HeaderComponent,
+    AdminpanelComponent
+  
   ],
   imports: [
     // RouterModule.forRoot(routes),
@@ -27,6 +33,7 @@ import { PerformanceAddModalComponent } from './components/performance-add-modal
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    [RouterModule.forRoot(routes)]
   ],
   providers: [
     provideClientHydration(),
