@@ -46,7 +46,7 @@ public class Performance {
 	private Date dateInfo;
 	
 	@Column(name = "EXECUSE")
-	private String execuse;
+	private String excuse;
 	
 	@Column(name = "EXECUSEHOURS")
 	private Integer execuseHours;

@@ -1,15 +1,12 @@
 package com.turkcellperf.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.turkcellperf.entity.Performance;
 import com.turkcellperf.repository.PerformanceRepository;
-import com.turkcellperf.repository.PerformanceSpecifications;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -24,8 +21,8 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return pr.findAll();
 	}
 
-	@Override
-	public Performance getPerformance(Long p) {
+		@Override
+		public Performance getPerformance(Long p) {
 		// TODO will be implement.
 		return pr.findById(p).orElseThrow(() -> new EntityNotFoundException());
 	}
@@ -42,14 +39,6 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return savedPerformance;
 	}
 
-	@Override
-	public List<Performance> listFilteredPerformance(String memberID, Date startDate, Date endDate) {
 
-		Specification<Performance> spec = Specification.where(PerformanceSpecifications.filterByMemberId(memberID))
-				.and(PerformanceSpecifications.filterByDateRange(startDate, endDate));
-//		System.out.println(pr.findAll(spec).get(0).getTimeout());
-		return pr.findAll(spec);
-
-	}
 
 }

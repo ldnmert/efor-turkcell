@@ -9,5 +9,5 @@ public class TurkcellPerformansApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TurkcellPerformansApplication.class, args);
 	}
-
+	
 }

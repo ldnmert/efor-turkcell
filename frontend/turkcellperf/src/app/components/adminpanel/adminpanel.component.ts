@@ -25,6 +25,6 @@ export class AdminpanelComponent {
     this.adminPanel.filterPerformances(this.filter.memberId, this.filter.startDate, this.filter.endDate)
       .subscribe(data => {
         this.filteredPerformances = data;
-      });
+      }); 
   }
 }

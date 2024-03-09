@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Performance } from '../model/performance'; 
+import { response } from 'express';
+import { AuthService } from './auth-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,26 +11,32 @@ import { Performance } from '../model/performance';
 export class PerformanceService {
 
   private baseUrl = 'http://localhost:8080/rest'; 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getPerformances(): Observable<Performance[]> {
-    return this.http.get<Performance[]>(`${this.baseUrl}`);
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.get<Performance[]>(`${this.baseUrl}`, { headers });
   }
 
   deletePerformance(id: number): Observable<any> {
+    const headers = this.authService.getAuthorizationHeaders();
     console.log(id);
     console.log(id);
-    const url = `${this.baseUrl}/${id}`;
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(`${this.baseUrl}/${id}` ,{ headers } );
     
   }
   addPerformance(performance: Performance): Observable<Performance> {
-    return this.http.post<Performance>(`${this.baseUrl}`, performance);
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.post<Performance>(`${this.baseUrl}`, performance, { headers });
   }
-
+  
   updatePerformance(performance: Performance): Observable<Performance> {
     const url = `${this.baseUrl}/${performance.id}`;
-    return this.http.put<Performance>(url, performance);
+    const headers = this.authService.getAuthorizationHeaders();
+    return this.http.put<Performance>(url, performance, { headers });
   }
+  
+
+
 
 }

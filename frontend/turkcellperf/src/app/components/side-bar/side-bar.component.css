@@ -1,0 +1,11 @@
+.side-bar {
+    background-color: #0c3f71;   /* Lacivert arkaplan rengi */
+    color: white; /* Yazı rengi */
+    position: absolute; /* Sabit konumlandırma */
+    left: 0; /* Sol tarafa yapıştır */
+    top: 50px; /* Üst tarafa yapıştır */
+    bottom: 0; /* Alt tarafa kadar uzat */
+    width: 120px; /* Genişlik */
+    overflow-y: auto;
+  } 
+  /* background-color: #0c3f71; */  

@@ -1,32 +1,51 @@
-<div class="add-performance-form">
-  <h2>Add Performance</h2>
-    <form (submit)="submitPerformance()" #form="ngForm" novalidate>
-        <!-- <label for="agentId">Agent ID:</label>
-      <input type="text" id="agentId" name="agentId" [(ngModel)]="newPerformance.agentId" required> -->
-        <!-- <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" name="firstName" [(ngModel)]="newPerformance.firstName" required>
-      <label for="surname">Surname:</label>
-      <input type="text" id="surname" name="surname" [(ngModel)]="newPerformance.surname" required> -->
-        <label for="begin">Begin: <span class="required" *ngIf="!performance.begin">Zorunlu</span></label>
-        <input type="time" id="begin" name="begin" [(ngModel)]="performance.begin" required>
-        <label for="end">End: <span class="required" *ngIf="!performance.begin">Zorunlu</span></label>
-        <input type="time" id="end" name="end" [(ngModel)]="performance.end" required>
-        <label for="dateInfo">Date Info: <span class="required" *ngIf="!performance.begin">Zorunlu</span></label>
-        <input type="date" id="dateInfo" name="dateInfo" [(ngModel)]="performance.dateInfo" required>
-        <label for="excuse">Excuse:</label>
-        <select id="excuse" name="excuse" [(ngModel)]="performance.excuse" class="form-control">
-            <option value="" disabled selected>Select an excuse</option>
-            <option value="Sick">Sick</option>
-            <option value="Emergency">Emergency</option>
-            <option value="Appointment">Appointment</option>
-            <!-- Diğer seçenekler buraya eklenebilir -->
-        </select>
-
-        <label for="execuseHours">Execuse Hours:</label>
-        <input type="number" id="execuseHours" name="execuseHours" [(ngModel)]="performance.execuseHours">
-        <label for="timeout">Timeout:</label>
-        <input type="number" id="timeout" name="timeout" [(ngModel)]="performance.timeout">
-        <button type="submit" [disabled]="!form.valid">Add</button>
-    </form>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="background-color: #0c3f71; color: white;">
+          <h2 class="card-title text-center mb-0">Add Performance</h2>
+        </div>
+        <div class="card-body">
+          <form (submit)="submitPerformance()" #form="ngForm" novalidate>
+            <div class="form-group">
+              <label for="begin">Begin:</label>
+              <input type="time" id="begin" name="begin" [(ngModel)]="performance.begin" class="form-control" required>
+              <div class="invalid-feedback" *ngIf="!performance.begin">Zorunlu</div>
+            </div>
+            <div class="form-group">
+              <label for="end">End:</label>
+              <input type="time" id="end" name="end" [(ngModel)]="performance.end" class="form-control" required>
+              <div class="invalid-feedback" *ngIf="!performance.end">Zorunlu</div>
+            </div>
+            <div class="form-group">
+              <label for="dateInfo">Date Info:</label>
+              <input type="date" id="dateInfo" name="dateInfo" [(ngModel)]="performance.dateInfo" class="form-control" required>
+              <div class="invalid-feedback" *ngIf="!performance.dateInfo">Zorunlu</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label for="excuse">Excuse:</label>
+                <select id="excuse" name="excuse" [(ngModel)]="performance.excuse" class="form-control">
+                  <option value="" disabled selected>Select an excuse</option>
+                  <option value="Sick">Sick</option>
+                  <option value="Emergency">Emergency</option>
+                  <option value="Appointment">Appointment</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="!performance.excuse">Zorunlu</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="execuseHours">Excuse Hours:</label>
+              <input type="number" id="execuseHours" name="execuseHours" [(ngModel)]="performance.execuseHours" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="timeout">Timeout:</label>
+              <input type="number" id="timeout" name="timeout" [(ngModel)]="performance.timeout" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-

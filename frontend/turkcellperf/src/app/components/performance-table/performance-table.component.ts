@@ -49,8 +49,8 @@ export class PerformanceTableComponent implements OnInit {
 
   openAddPerformanceModal(): void {
     const dialogRef = this.dialog.open(PerformanceAddModalComponent, {
-      width: '400px', // Modal width
-      data: { mode: 'add' } // Pass mode as 'add' to indicate adding a new performance
+      width: '400px', 
+      data: { mode: 'add' } 
     });
   
     dialogRef.afterClosed().subscribe(newPerformance => {
@@ -73,9 +73,7 @@ export class PerformanceTableComponent implements OnInit {
      
           this.performances[index] = updatedPerformance;
         
-          // Manually trigger change detection
-   
-            // Manually trigger change detection within Angular's zone
+          
             
           
         

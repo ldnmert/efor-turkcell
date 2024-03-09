@@ -9,17 +9,17 @@ import { Performance } from '../../model/performance';
   styleUrls: ['./performance-add-modal.component.css']
 })
 export class PerformanceAddModalComponent implements OnInit {
-  performance: Performance = new Performance(); // Performance object to be added or updated
+  performance: Performance = new Performance(); 
 
   constructor(
     public dialogRef: MatDialogRef<PerformanceAddModalComponent>,
     private performanceService: PerformanceService,
-    @Inject(MAT_DIALOG_DATA) public data: any // Inject data from parent component
+    @Inject(MAT_DIALOG_DATA) public data: any 
   ) { }
 
   ngOnInit(): void {  
     if (this.data.mode === 'update') {
-      // If mode is update, set performance object to the one passed from parent component
+    
       this.performance = { ...this.data.performance };
     }
   }
@@ -32,18 +32,15 @@ export class PerformanceAddModalComponent implements OnInit {
       this.performanceService.addPerformance(this.performance)
         .subscribe((newPerformance) => {
           console.log('Performance added:', newPerformance.id);
-          this.dialogRef.close(newPerformance); // Close modal and pass new performance
+          this.dialogRef.close(newPerformance); 
         });
     } else if (this.data.mode === 'update') {
-      // If mode is update, update the performance
+     
       this.performanceService.updatePerformance(this.performance)
         .subscribe(() => {
        
         
-          this.dialogRef.close(this.performance); // Close modal and pass updated performance
-          // onceden updatedPerformance yazıyordu burada degistirdin incele
-          // buradaki olay verinin sunucunan geldigi hali mi mevzusu bakıp burayı da guncelleyebilirsin.
-          // ama zaten update oldugu icin id ayni sorun cikarmiyor simdilik.
+          this.dialogRef.close(this.performance); 
         });
     }
   }

@@ -1,20 +1,4 @@
-<div class="header"> 
-   <h1>GLOBAL BILGI</h1>
-</div>
+<app-header></app-header>
+<app-side-bar></app-side-bar>
+<router-outlet></router-outlet>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="sidebar">
-        <!-- Sol tarafta performans tablosu bağlantısı -->
-        <a routerLink="/" clic>Performans Tablosu</a>
-        <br>
-        <!-- Admin paneli bağlantısı -->
-        <a routerLink="/admin">Admin Paneli</a>
-      </div>
-    </div>
-    <div class="col-md-9">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>

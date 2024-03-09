@@ -1,0 +1,24 @@
+/* login.component.css */
+.container {
+    height: 100vh; /* Ekran yüksekliği kadar alanı kapla */
+    
+    background-color: #f2f2f2; /* Beyaz arka plan rengi */
+  }
+  
+  .row {
+    height: 100%; /* Satır yüksekliği ekran yüksekliğine eşit olsun */
+  }
+  
+  .align-items-center {
+    display: flex; /* Öğeleri dikey olarak hizala */
+    align-items: center; /* Dikeyde ortala */
+  }
+  
+  .card-body {
+    text-align: center; /* İçeriği yatayda ortala */
+  }
+  
+  .btn-primary {
+    background-color: yellow; /* Sarı arka plan rengi */
+    color: navy; /* Lacivert metin rengi */
+  }
