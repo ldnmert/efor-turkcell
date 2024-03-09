@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class AuthService {
               const decodedToken = this.decodeToken(token);
               console.log(token + " girdi");
               this.saveToken(token);
-          
+             
                 if (decodedToken.roleName === 'ROLE_USER') {
                   console.log("qweasdzxc");
                 

@@ -12,12 +12,18 @@ export class UserService {
 
   
 
-  constructor(private authService: AuthService, private http: HttpClient, private loginService:LoginService) { }
-  private baseUrl2 = "localhost:8080/profile-infos"
-  private agentId = this.loginService.getAgentId();
+  constructor(private authService: AuthService, private http: HttpClient) { }
+  private baseUrl2 = "http://localhost:8080/profile-info"
+  
+  private agentId:string = "";
+
+  getUserAgentId(agentId:string):void{
+    this.agentId = agentId;
+  }
+
   
   getInfos(): Observable<string[]> {
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<string[]>(`${this.baseUrl2}/GLB1111`, { headers });
+    return this.http.get<string[]>(`${this.baseUrl2}/${this.agentId}`, { headers });
   }
 }

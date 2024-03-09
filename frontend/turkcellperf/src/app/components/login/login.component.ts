@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
 import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent {
 
 
 
-  constructor(private authService: AuthService, private router: Router, private loginService:LoginService) {}
+  constructor(private authService: AuthService, private userService:UserService) {}
 
   
 
@@ -29,7 +30,9 @@ export class LoginComponent {
     };
 
     this.authService.login(credentials).subscribe(
-      () => {
+      () => {   
+
+        this.userService.getUserAgentId(credentials.agentId);
         console.log("girmesi lazim")
         // Başarılı giriş durumunda performans tablosuna yönlendir
         // this.router.navigate(['/performance-table']);

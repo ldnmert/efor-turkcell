@@ -35,7 +35,7 @@ public class TableController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-//	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
 	@GetMapping
 	public ResponseEntity<List<Performance>> getAllPerformance() {
 
@@ -55,7 +55,7 @@ public class TableController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-//	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE })
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePerformance(@PathVariable Long id) {
 		System.out.println(id);
@@ -66,7 +66,7 @@ public class TableController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
-//	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.PUT })
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.PUT })
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updatePerformance(@PathVariable Long id, @RequestBody Performance performance) {
 
@@ -78,7 +78,7 @@ public class TableController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-//	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.POST })
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.POST })
 	@PostMapping
 	public ResponseEntity<Performance> addPerformance(@RequestBody Performance p) {
 		System.out.println(p.getExcuse());

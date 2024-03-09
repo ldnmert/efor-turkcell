@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -10,11 +10,13 @@ import { UserService } from '../../services/user.service';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
 
   constructor(private userService:UserService){}
 
-  private baseUrl = "localhost:8080/profile-infos"
+  ngOnInit(): void {
+      this.getInfo();
+  }
   
 
 
@@ -23,8 +25,15 @@ export class UserComponent {
   getInfo(): void {
    
   this.userService.getInfos()
-      .subscribe(infos => this.infos = infos);
+  .subscribe(infos => {
+    this.infos = infos;
+    console.log(this.infos[3] + "sfdsfd");
+   
+});
+      
   }
+
+
 
  
 

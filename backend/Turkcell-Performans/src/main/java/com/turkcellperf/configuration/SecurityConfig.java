@@ -1,6 +1,7 @@
 package com.turkcellperf.configuration;
 
-import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmTypeSpecificationType;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -89,4 +90,16 @@ public class SecurityConfig {
 //        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 //        return source;
 //    }
+    
+    
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
