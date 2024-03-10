@@ -1,7 +1,14 @@
 <div class="user-profile">
-    <div class="user-info">
-      <img src= "{{ infos[3] }}" alt="Foto">
-      <span class="user-name">{{ infos[1] }} {{ infos[2] }}</span>
+  <div class="user-info" style="text-align: center;">
+      <div class="user-photo">
+          <img src="{{ infos[3] }}" alt="Foto" style="width: 100px; height: 100px; border-radius: 50%;">
+      </div>
+      <div class="user-details" style="color: white;">
+        <span class="user-name" style="font-weight: 500;">{{ infos[1] }} {{ infos[2] }}</span><br>
+        <div class="user-role" style="font-weight: 500;">{{ infos[0] }}</div>
     </div>
-
+      <div class="logout-button">
+        <button class="btn btn-danger" (click)="logout()">Çıkış Yap</button>
+      </div>
   </div>
+</div>

@@ -1,5 +1,6 @@
 package com.turkcellperf.service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -19,11 +20,15 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	@Override
-	public List<Performance> listFilteredPerformance(String memberID, Date startDate, Date endDate) {
+	public List<Performance> listFilteredPerformance(String memberId, Date startDate, Date endDate, 
+			 String excuse, Integer excuseHours, Integer timeout) {
 
-		Specification<Performance> spec = Specification.where(PerformanceSpecifications.filterByMemberId(memberID))
-				.and(PerformanceSpecifications.filterByDateRange(startDate, endDate));
-//		System.out.println(pr.findAll(spec).get(0).getTimeout());
+		   Specification<Performance> spec = Specification.where(PerformanceSpecifications.filterByMemberId(memberId))
+		            .and(PerformanceSpecifications.filterByDateRange(startDate, endDate))
+//		            .and(PerformanceSpecifications.filterByTimestampRange(begin, end))
+		            .and(PerformanceSpecifications.filterByExcuse(excuse))
+		            .and(PerformanceSpecifications.filterByExcuseHours(excuseHours))
+		            .and(PerformanceSpecifications.filterByTimeout(timeout));
 		return pr.findAll(spec);
 
 	}

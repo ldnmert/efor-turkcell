@@ -29,6 +29,7 @@ public class ProfileService {
 		Agent agent = ar.findByAgentId(agentId);
 	
 		List<String> infos = Arrays.asList(agent.getAgentId(), agent.getFirstName(), agent.getSurname(), agent.getPhoto());
+		System.out.println(infos);
 		return new ResponseEntity<>(infos, HttpStatus.OK);
 	}
 	

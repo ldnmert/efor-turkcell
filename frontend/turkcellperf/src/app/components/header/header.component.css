@@ -1,8 +1,21 @@
-.header { 
+.header {
+   position: fixed;
+   top: 0;
+   background-color: #0c3f71;
+   color: white;
+   width: 100%;
+   z-index: 9999; /* Header'i en üstte tutmak için yüksek bir z-index değeri atayın */
+}
 
-     top: 0;
-  background-color: #0c3f71; 
-  color: white;  
 
- 
- }
+
+
+/* bu onceki hali yani side bar css fixed asagı ınınce yok oluyordu  */
+ /* .header { 
+
+   top: 0;
+background-color: #0c3f71; 
+color: white;  
+
+
+} */

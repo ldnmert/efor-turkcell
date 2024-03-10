@@ -1,8 +1,11 @@
+<div class="custom-container">
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-2"> <!-- Filtreleme seçenekleri sütunu -->
+    
+    <div class="col-md-2 order-md-3"> <!-- Filtreleme seçenekleri sütunu -->
       <div class="filter-container mb-2"> <!-- Küçültülmüş mb-4 -->
         <h3 class="mb-3 text-center">Filtreleme Seçenekleri</h3>
+        <div class="fixedfilter">
         <form (ngSubmit)="filterPerformances()" #filterForm="ngForm"> 
           <div class="form-group">
             <label for="memberId">Üye ID:</label>
@@ -16,16 +19,39 @@
             <label for="endDate">Bitiş Tarihi:</label>
             <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="filter.endDate">
           </div>
+          <!-- <div class="form-group">
+            <label for="begin">Başlangıç Zamanı:</label>
+            <input type="time" class="form-control" id="begin" name="begin" [(ngModel)]="filter.begin">
+          </div>
+          <div class="form-group">
+            <label for="end">Bitiş Zamanı:</label>
+            <input type="time" class="form-control" id="end" name="end" [(ngModel)]="filter.end">
+          </div> -->
+          <div class="form-group">
+            <label for="excuse">Bahane:</label>
+            <input type="text" class="form-control" id="excuse" name="excuse" [(ngModel)]="filter.excuse">
+          </div>
+          <div class="form-group">
+            <label for="excuseHours">Bahane Saati:</label>
+            <input type="number" class="form-control" id="excuseHours" name="excuseHours" [(ngModel)]="filter.excuseHours">
+          </div>
+          <div class="form-group">
+            <label for="timeout">Zaman Aşımı:</label>
+            <input type="number" class="form-control" id="timeout" name="timeout" [(ngModel)]="filter.timeout">
+          </div>
+          
           <div class="text-center">
             <button type="submit" class="btn btn-primary">Filtrele</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="col-md-10"> <!-- Tablo sütunu -->
+  </div>
+    <div class="col-md-10 order-md-2"> <!-- Tablo sütunu -->
       <div class="performance-table-container">
         <h1 class="text-center mb-4">Performance Table</h1>
         <div class="table-responsive">
+          <div id="performance-table">
           <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
@@ -55,8 +81,16 @@
             </tbody>
           </table>
         </div>
+        </div>
       </div>
     </div>
+    <div class="col-md-2 order-md-3"> <!-- App-user sütunu -->
+      <app-user class="fixed-bottom"></app-user>
+    </div>
   </div>
+  <div class="customexcel">
+      <button type="button" class="btn btn-success" (click)="exportToExcel()">Excel Olarak İndir</button>
+    </div>
 </div>
-<app-user></app-user>
+
+</div>

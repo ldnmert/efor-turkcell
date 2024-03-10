@@ -1,0 +1,13 @@
+.fixed-bottom {
+  position: fixed;
+  bottom: 15px;
+  left: 0;
+  width: 8%;
+}
+
+.eklesabit{
+  position: fixed;
+  left:5px;
+  top: 40%;
+  width: 5%;
+}

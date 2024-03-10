@@ -33,7 +33,7 @@ public class Agent {
 	@Column(name = "PHOTO")
 	private String photo;
 	
-	@Column(name = "FIRSTNAME")
+	@Column(name = "NAME")
 	private String firstName;
 	
 	@Column(name = "SURNAME")

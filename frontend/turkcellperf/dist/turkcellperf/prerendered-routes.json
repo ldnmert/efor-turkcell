@@ -1,6 +1,8 @@
 {
   "routes": [
+    "/admin-table",
     "/login",
-    "/performance-table"
+    "/performance-table",
+    "/unauthorized"
   ]
 }

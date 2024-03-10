@@ -11,8 +11,17 @@ export class AdminPanelService {
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  filterPerformances(memberId: string, startDate: string, endDate: string): Observable<any> {
+  filterPerformances(memberId: string, startDate: string, endDate: string, excuse:string, excuseHours: string, timeout: string): Observable<any> {
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<any>(`${this.baseUrl}?memberId=${memberId}&startDate=${startDate}&endDate=${endDate}`, {headers});
+
+    if(timeout == null){
+      timeout = '';
+    }
+    if(excuseHours == null){
+      excuseHours = '';
+    }
+  
+    const url = `${this.baseUrl}?memberId=${memberId}&startDate=${startDate}&endDate=${endDate}&excuse=${excuse}&excuseHours=${excuseHours}&timeout=${timeout}`;
+    return this.http.get<any>(url, { headers });
   }
 }

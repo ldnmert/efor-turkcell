@@ -17,7 +17,9 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/login/login.component';
 
 
+
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+
 
 
 
@@ -44,7 +46,10 @@ const routes: Routes = [
     AdminpanelComponent,
     SideBarComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    
+  
+    
     
 
   
@@ -56,6 +61,7 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
  
 
   ],
