@@ -18,7 +18,8 @@ export class PerformanceTableComponent implements OnInit {
   
   newPerformance: Performance = new Performance(0, '', '', '', '', '', '', '', 0, 0); 
   ngOnInit(): void {
- 
+    
+    
     this.getPerformances();
 
 

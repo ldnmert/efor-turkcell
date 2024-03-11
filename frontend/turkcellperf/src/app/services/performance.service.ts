@@ -12,10 +12,16 @@ export class PerformanceService {
 
   private baseUrl = 'http://localhost:8080/rest'; 
   constructor(private http: HttpClient, private authService: AuthService) { }
+  private agentId:string = "";
+
+  getUserAgentId(agentId: string): void {
+    this.agentId = agentId;
+
+  }
 
   getPerformances(): Observable<Performance[]> {
     const headers = this.authService.getAuthorizationHeaders();
-    return this.http.get<Performance[]>(`${this.baseUrl}`, { headers });
+    return this.http.get<Performance[]>(`${this.baseUrl}/${this.agentId}`, { headers });
   }
 
   deletePerformance(id: number): Observable<any> {

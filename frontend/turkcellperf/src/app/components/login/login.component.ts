@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
+import { PerformanceService } from '../../services/performance.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginComponent {
 
 
 
-  constructor(private authService: AuthService, private userService:UserService) {}
+  constructor(private authService: AuthService, private userService:UserService, private performanceService:PerformanceService) {}
 
   
 
@@ -33,6 +34,7 @@ export class LoginComponent {
       () => {   
 
         this.userService.getUserAgentId(credentials.agentId);
+        this.performanceService.getUserAgentId(credentials.agentId);
         console.log("girmesi lazim")
         // Başarılı giriş durumunda performans tablosuna yönlendir
         // this.router.navigate(['/performance-table']);

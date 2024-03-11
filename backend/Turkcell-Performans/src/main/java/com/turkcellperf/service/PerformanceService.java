@@ -6,13 +6,15 @@ import com.turkcellperf.entity.Performance;
 
 public interface PerformanceService {
 
-	List<Performance> listPerformanceOfCurrentAgent();
+	List<Performance> listPerformanceOfCurrentAgent(String agentId);
 
 	Performance getPerformance(Long g);
 
 	void deletePerformance(Performance p);
 
 	Performance addPerformance(Performance p);
+	
+	
 
 	
 

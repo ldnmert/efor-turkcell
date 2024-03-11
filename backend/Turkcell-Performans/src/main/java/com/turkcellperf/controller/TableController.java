@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turkcellperf.entity.Performance;
 import com.turkcellperf.service.PerformanceService;
 
-
 @RestController
 @RequestMapping("/rest")
 //@CrossOrigin("*")
@@ -28,7 +27,8 @@ public class TableController {
 
 	private final PerformanceService performanceService;
 
-	
+	private String save;
+
 	@Autowired
 	public TableController(PerformanceService performanceService) {
 		this.performanceService = performanceService;
@@ -36,20 +36,30 @@ public class TableController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
-	@GetMapping
-	public ResponseEntity<List<Performance>> getAllPerformance() {
-
-		List<Performance> p = performanceService.listPerformanceOfCurrentAgent();
+	@GetMapping("/{agentId}")
+	public ResponseEntity<List<Performance>> getAllPerformance(@PathVariable String agentId) {
+		
+		save = agentId;
+		List<Performance> p = performanceService.listPerformanceOfCurrentAgent(agentId);
 		return new ResponseEntity<>(p, HttpStatus.OK);
-	
+
 	}
+
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
+	@GetMapping("/")
+	public ResponseEntity<List<Performance>> getAllPerformance2() {
 	
+		List<Performance> p = performanceService.listPerformanceOfCurrentAgent(save);
+		return new ResponseEntity<>(p, HttpStatus.OK);
+
+	}
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 //	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
 	@GetMapping("/aaa")
 	public ResponseEntity<String> deneme() {
 
-		
 		return new ResponseEntity<>("yes", HttpStatus.OK);
 
 	}
@@ -64,7 +74,7 @@ public class TableController {
 
 		return ResponseEntity.ok().body("{\"message\": \"Deleted\"}");
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.PUT })
 	@PutMapping("/{id}")
@@ -86,7 +96,5 @@ public class TableController {
 
 		return new ResponseEntity<>(savedPerformance, HttpStatus.CREATED);
 	}
-	
-
 
 }

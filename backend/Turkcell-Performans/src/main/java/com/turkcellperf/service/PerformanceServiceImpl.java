@@ -17,8 +17,8 @@ public class PerformanceServiceImpl implements PerformanceService {
 	PerformanceRepository pr;
 
 	@Override
-	public List<Performance> listPerformanceOfCurrentAgent() {
-		return pr.findAll();
+	public List<Performance> listPerformanceOfCurrentAgent(String agentId) {
+		return pr.findByAgentId(agentId);
 	}
 
 		@Override

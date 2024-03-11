@@ -20,17 +20,32 @@ public class ProfileService {
 
 	@Autowired
 	AgentRepository ar;
-	
+
+	private String save;
+
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
 	@GetMapping("/profile-info/{agentId}")
-	ResponseEntity<List<String>> getInfos(@PathVariable String agentId){
-	
-		
+	ResponseEntity<List<String>> getInfos(@PathVariable String agentId) {
+
+		save = agentId;
 		Agent agent = ar.findByAgentId(agentId);
-	
-		List<String> infos = Arrays.asList(agent.getAgentId(), agent.getFirstName(), agent.getSurname(), agent.getPhoto());
+
+		List<String> infos = Arrays.asList(agent.getAgentId(), agent.getFirstName(), agent.getSurname(),
+				agent.getPhoto());
 		System.out.println(infos);
 		return new ResponseEntity<>(infos, HttpStatus.OK);
 	}
-	
+
+	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
+	@GetMapping("/profile-info/")
+	ResponseEntity<List<String>> getInfos2() {
+
+		Agent agent = ar.findByAgentId(save);
+
+		List<String> infos = Arrays.asList(agent.getAgentId(), agent.getFirstName(), agent.getSurname(),
+				agent.getPhoto());
+		System.out.println(infos);
+		return new ResponseEntity<>(infos, HttpStatus.OK);
+	}
+
 }
