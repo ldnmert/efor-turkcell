@@ -14,8 +14,4 @@ public interface PerformanceService {
 
 	Performance addPerformance(Performance p);
 	
-	
-
-	
-
 }
