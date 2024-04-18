@@ -22,7 +22,6 @@ import com.turkcellperf.service.PerformanceService;
 
 @RestController
 @RequestMapping("/rest")
-//@CrossOrigin("*")
 public class TableController {
 
 	private final PerformanceService performanceService;
@@ -55,14 +54,7 @@ public class TableController {
 
 	}
 
-	@PreAuthorize("hasRole('ROLE_USER')")
-//	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
-	@GetMapping("/aaa")
-	public ResponseEntity<String> deneme() {
-
-		return new ResponseEntity<>("yes", HttpStatus.OK);
-
-	}
+	
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE })
