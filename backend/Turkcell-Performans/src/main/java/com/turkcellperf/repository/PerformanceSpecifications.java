@@ -27,23 +27,7 @@ public class PerformanceSpecifications {
 	        };
 	    }
 	    
-//	    public static Specification<Performance> filterByTimestampRange(Timestamp begin, Timestamp end) {
-//	       
-//	    	
-//	    	return (root, query, criteriaBuilder) -> {
-//	    		
-//	    		
-//	    		System.out.println(begin + "qwewqe" + end + "ddddddd");
-//
-//	            if (begin == null || end == null) {
-//	                return criteriaBuilder.conjunction();
-//	            }
-//	            return criteriaBuilder.and(
-//	                criteriaBuilder.greaterThan(root.get("begin"), begin),
-//	                criteriaBuilder.lessThan(root.get("end"), end)
-//	            );
-//	        };
-//	    }
+
 
 	    public static Specification<Performance> filterByExcuse(String excuse) {
 	        return (root, query, criteriaBuilder) -> {
