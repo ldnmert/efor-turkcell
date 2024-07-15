@@ -41,18 +41,6 @@ public class TableController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
-	@GetMapping("/")
-	public ResponseEntity<List<Performance>> getAllPerformance2() {
-	
-		List<Performance> p = performanceService.listPerformanceOfCurrentAgent(save);
-		return new ResponseEntity<>(p, HttpStatus.OK);
-
-	}
-
-	
-
-	@PreAuthorize("hasRole('ROLE_USER')")
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePerformance(@PathVariable Long id) {
