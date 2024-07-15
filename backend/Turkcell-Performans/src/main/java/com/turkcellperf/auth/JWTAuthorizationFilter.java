@@ -23,52 +23,49 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private final JWTUtil jwtUtil;
+	private final JWTUtil jwtUtil;
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager, JWTUtil jwtUtil) {
-        super(authManager);
-        this.jwtUtil = jwtUtil;
-    }
+	public JWTAuthorizationFilter(AuthenticationManager authManager, JWTUtil jwtUtil) {
+		super(authManager);
+		this.jwtUtil = jwtUtil;
+	}
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
-                                    FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader("Authorization");
+	@Override
+	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		String header = req.getHeader("Authorization");
 
-        if (header == null || !header.startsWith("Bearer ")) {
-            chain.doFilter(req, res);
-            return;
-        }
+		if (header == null || !header.startsWith("Bearer ")) {
+			chain.doFilter(req, res);
+			return;
+		}
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(req, res);
-    }
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		chain.doFilter(req, res);
+	}
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        if (token != null) {
-            try {
-                DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("EAXCF"))
-                        .build()
-                        .verify(token.replace("Bearer ", ""));
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+		String token = request.getHeader("Authorization");
+		if (token != null) {
+			try {
+				DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("EAXCF")).build()
+						.verify(token.replace("Bearer ", ""));
 
-                String user = decodedJWT.getSubject();
-                String rolesString = decodedJWT.getClaim("roleName").asString();
+				String user = decodedJWT.getSubject();
+				String rolesString = decodedJWT.getClaim("roleName").asString();
 
-                List<GrantedAuthority> authorities = Arrays.stream(rolesString.split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+				List<GrantedAuthority> authorities = Arrays.stream(rolesString.split(","))
+						.map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
-                if (user != null) {
-                    return new UsernamePasswordAuthenticationToken(user, null, authorities);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
+				if (user != null) {
+					return new UsernamePasswordAuthenticationToken(user, null, authorities);
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return null;
+	}
 }

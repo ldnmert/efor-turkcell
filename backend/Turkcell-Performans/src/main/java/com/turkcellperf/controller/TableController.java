@@ -2,7 +2,6 @@ package com.turkcellperf.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,45 +21,22 @@ import com.turkcellperf.service.PerformanceService;
 
 @RestController
 @RequestMapping("/rest")
-//@CrossOrigin("*")
 public class TableController {
 
 	private final PerformanceService performanceService;
 
-	private String save;
-
-	@Autowired
 	public TableController(PerformanceService performanceService) {
 		this.performanceService = performanceService;
+
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
 	@GetMapping("/{agentId}")
 	public ResponseEntity<List<Performance>> getAllPerformance(@PathVariable String agentId) {
-		
-		save = agentId;
+
 		List<Performance> p = performanceService.listPerformanceOfCurrentAgent(agentId);
 		return new ResponseEntity<>(p, HttpStatus.OK);
-
-	}
-
-	@PreAuthorize("hasRole('ROLE_USER')")
-	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
-	@GetMapping("/")
-	public ResponseEntity<List<Performance>> getAllPerformance2() {
-	
-		List<Performance> p = performanceService.listPerformanceOfCurrentAgent(save);
-		return new ResponseEntity<>(p, HttpStatus.OK);
-
-	}
-
-	@PreAuthorize("hasRole('ROLE_USER')")
-//	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
-	@GetMapping("/aaa")
-	public ResponseEntity<String> deneme() {
-
-		return new ResponseEntity<>("yes", HttpStatus.OK);
 
 	}
 

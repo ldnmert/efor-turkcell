@@ -13,9 +13,5 @@ public interface PerformanceService {
 	void deletePerformance(Performance p);
 
 	Performance addPerformance(Performance p);
-	
-	
-
-	
 
 }

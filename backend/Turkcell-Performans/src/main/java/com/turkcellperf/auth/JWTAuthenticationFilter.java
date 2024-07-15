@@ -23,49 +23,45 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final AuthenticationManager authenticationManager;
-    private final JWTUtil jwtUtil;
-    private final AgentDetailServiceImpl userService;
+	private final AuthenticationManager authenticationManager;
+	private final JWTUtil jwtUtil;
+	private final AgentDetailServiceImpl userService;
 
- 
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil,
+			AgentDetailServiceImpl userService) {
+		this.authenticationManager = authenticationManager;
+		this.jwtUtil = jwtUtil;
+		this.userService = userService;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, AgentDetailServiceImpl userService) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-        this.userService = userService;
-        
-    }
+	}
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
-        try {
-            Agent user = new ObjectMapper().readValue(req.getInputStream(), Agent.class);
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+			throws AuthenticationException {
+		try {
+			Agent user = new ObjectMapper().readValue(req.getInputStream(), Agent.class);
 
-            return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            user.getAgentId(),
-                            user.getPassword(),
-                            new ArrayList<>())
-            );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+			return authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(user.getAgentId(), user.getPassword(), new ArrayList<>()));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
-        UserDetails userDetails = userService.loadUserByUsername(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername());
+	@Override
+	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
+			Authentication auth) throws IOException, ServletException {
+		UserDetails userDetails = userService.loadUserByUsername(
+				((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername());
 
-        String token = jwtUtil.generateToken(userDetails);
-        
+		String token = jwtUtil.generateToken(userDetails);
 
-        JSONObject jsonResponse = new JSONObject();
-        jsonResponse.put("token", "Bearer " + token);
+		JSONObject jsonResponse = new JSONObject();
+		jsonResponse.put("token", "Bearer " + token);
 
+		PrintWriter writer = res.getWriter();
+		writer.write(jsonResponse.toString());
+		writer.flush();
 
-        PrintWriter writer = res.getWriter();
-        writer.write(jsonResponse.toString());
-        writer.flush();
-        
-    }
+	}
 }

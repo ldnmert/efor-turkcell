@@ -1,16 +1,8 @@
 package com.turkcellperf.controller;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +21,12 @@ import com.turkcellperf.service.AdminService;
 @RestController
 public class AdminController {
 
-	@Autowired
-	AdminService adminService;
+	private final AdminService adminService;
+
+	public AdminController(AdminService adminService) {
+
+		this.adminService = adminService;
+	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })

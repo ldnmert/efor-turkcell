@@ -32,74 +32,57 @@ import com.turkcellperf.service.AgentDetailServiceImpl;
 public class SecurityConfig {
 
 	private final AgentDetailServiceImpl userService;
-  
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final JWTUtil jwtUtil;
 
-    @Autowired
-    public SecurityConfig(AgentDetailServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder, JWTUtil jwtUtil) {
-        this.userService = userService;
-  
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.jwtUtil = jwtUtil;
-    }
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final JWTUtil jwtUtil;
 
-    @Bean
-    AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-    
-    
+	@Autowired
+	public SecurityConfig(AgentDetailServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder,
+			JWTUtil jwtUtil) {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        AuthenticationManager authenticationManager = authenticationManager(httpSecurity.getSharedObject(AuthenticationConfiguration.class));
+		this.userService = userService;
 
-        httpSecurity
-        .cors(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                		.requestMatchers(HttpMethod.POST, "/login").permitAll()
-                		.requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                		.requestMatchers(HttpMethod.GET, "/profile-service/**").permitAll()                	
-                		
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.jwtUtil = jwtUtil;
+	}
 
-                		
-              
-                        
-                      
-                        
-                        .anyRequest().authenticated()
-                )
-                .addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil, userService))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil))
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+	}
 
-        return httpSecurity.build();
-    }
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+		AuthenticationManager authenticationManager = authenticationManager(
+				httpSecurity.getSharedObject(AuthenticationConfiguration.class));
 
-    @Autowired
-    void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
-    }
+		httpSecurity.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.POST, "/login").permitAll()
+						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/profile-service/**").permitAll()
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-//        return source;
-//    }
-    
-    
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+						.anyRequest().authenticated())
+				.addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil, userService))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil))
+				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		return httpSecurity.build();
+	}
+
+	@Autowired
+	void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }
