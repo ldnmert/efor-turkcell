@@ -57,7 +57,6 @@ public class SecurityConfig {
 		AuthenticationManager authenticationManager = authenticationManager(
 				httpSecurity.getSharedObject(AuthenticationConfiguration.class));
 
-<<<<<<< HEAD
 		httpSecurity.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.POST, "/login").permitAll()
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -87,7 +86,7 @@ public class SecurityConfig {
 		return source;
 	}
 }
-=======
+
     @Autowired
     void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
@@ -105,4 +104,4 @@ public class SecurityConfig {
         return source;
     }
 }
->>>>>>> 1f50cc790b6a37df720206fc3d9c537e982776c2
+

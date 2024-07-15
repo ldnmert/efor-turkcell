@@ -41,8 +41,6 @@ public class TableController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
-<<<<<<< HEAD
-=======
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET })
 	@GetMapping("/")
 	public ResponseEntity<List<Performance>> getAllPerformance2() {
@@ -55,7 +53,6 @@ public class TableController {
 	
 
 	@PreAuthorize("hasRole('ROLE_USER')")
->>>>>>> 1f50cc790b6a37df720206fc3d9c537e982776c2
 	@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.DELETE })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePerformance(@PathVariable Long id) {

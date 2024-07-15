@@ -21,10 +21,10 @@ public class AuthController {
 	private final AgentRepository agentRepository;
 	
 	
-	public AuthController(BCryptPasswordEncoder passwordEncoder, AgentRepository ar) {
+	public AuthController(BCryptPasswordEncoder passwordEncoder, AgentRepository agentRepository) {
 	
 		this.passwordEncoder = passwordEncoder;
-		this.agentRepository = ar;
+		this.agentRepository = agentRepository;
 	}
 
 
