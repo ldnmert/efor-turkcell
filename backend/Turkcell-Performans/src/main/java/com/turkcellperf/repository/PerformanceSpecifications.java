@@ -17,6 +17,7 @@ public class PerformanceSpecifications {
 		};
 	}
 
+<<<<<<< HEAD
 	public static Specification<Performance> filterByDateRange(Date startDate, Date endDate) {
 		return (root, query, criteriaBuilder) -> {
 			if (startDate == null || endDate == null) {
@@ -25,6 +26,18 @@ public class PerformanceSpecifications {
 			return criteriaBuilder.between(root.get("dateInfo"), startDate, endDate);
 		};
 	}
+=======
+	    public static Specification<Performance> filterByDateRange(Date startDate, Date endDate) {
+	        return (root, query, criteriaBuilder) -> {
+	            if (startDate == null || endDate == null) {
+	                return criteriaBuilder.conjunction();
+	            }
+	            return criteriaBuilder.between(root.get("dateInfo"), startDate, endDate);
+	        };
+	    }
+	    
+
+>>>>>>> 1f50cc790b6a37df720206fc3d9c537e982776c2
 
 	public static Specification<Performance> filterByExcuse(String excuse) {
 		return (root, query, criteriaBuilder) -> {
